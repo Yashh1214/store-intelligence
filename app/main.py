@@ -78,21 +78,12 @@ app.mount("/dashboard", StaticFiles(directory="app/static", html=True), name="da
 
 # ─── Root ────────────────────────────────────────────────────────────────────
 
+from fastapi.responses import RedirectResponse
+
 @app.get("/")
 async def root():
-    """API root — shows available endpoints."""
-    return {
-        "name": "Purplle Retail Analytics API",
-        "version": "1.0.0",
-        "endpoints": {
-            "POST /events/ingest": "Ingest detection events (batch)",
-            "POST /events/ingest/single": "Ingest single event",
-            "GET /stores/{store_id}/metrics": "Get store metrics",
-            "GET /stores/{store_id}/funnel": "Get conversion funnel",
-            "GET /stores/{store_id}/events": "Get raw events",
-            "GET /health": "Health check",
-        },
-    }
+    """Redirect to the interactive dashboard."""
+    return RedirectResponse(url="/dashboard/")
 
 
 if __name__ == "__main__":
